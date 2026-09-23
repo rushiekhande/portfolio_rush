@@ -1,3 +1,5 @@
+document.documentElement.classList.add('js');
+
 document.addEventListener('DOMContentLoaded', () => {
   /* ---------- Scroll Progress Bar ---------- */
   const progressBar = document.getElementById('scrollProgress');
@@ -165,18 +167,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   form.addEventListener('submit', (e) => {
-    e.preventDefault();
     formStatus.textContent = '';
     formStatus.style.color = '';
 
     if (!validate()) {
+      e.preventDefault();
       formStatus.style.color = '#ef4444';
       formStatus.textContent = 'Please fix the highlighted fields.';
       return;
     }
 
+    // Valid — allow form to submit to FormSubmit
+    const btn = document.getElementById('submitBtn');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+    }
     formStatus.style.color = '#0d9488';
-    formStatus.textContent = 'Message sent — thanks! I will get back to you soon.';
-    form.reset();
+    formStatus.textContent = 'Sending your message...';
+    // Form will POST to formsubmit.co and redirect/show success
   });
 });
