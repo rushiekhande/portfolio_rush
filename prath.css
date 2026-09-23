@@ -1,4 +1,4 @@
-: root {
+:root {
   --bg: #f7f8fa;
   --bg-card: #ffffff;
   --bg-muted: #eef1f6;
@@ -24,7 +24,10 @@
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .reveal {
+  /* Fallback: visible by default if JS fails */
+  opacity: 1;
+  transform: none; opacity: 1 !important; transform: none !important; transition: none !important; }
   * { animation: none !important; }
 }
 
@@ -143,10 +146,15 @@ ul { list-style: none; }
 }
 
 /* ---------- Reveal Animation ---------- */
+/* Content is visible by default. JS only enhances with animation. */
 .reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+html.js .reveal:not(.in-view) {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
 }
 .reveal.in-view {
   opacity: 1;
@@ -230,6 +238,11 @@ ul { list-style: none; }
   transform: translateY(-2px);
 }
 .btn.full { width: 100%; }
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
 
 .hero-meta {
   display: flex;
