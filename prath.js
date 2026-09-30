@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ['name', 'email', 'message'].forEach(n => {
     form[n].addEventListener('blur', validate);
   });
-  }); 
+  
 
  /* form.addEventListener('submit', (e) => {
     formStatus.textContent = '';
@@ -241,3 +241,4 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = 'Send Message';
     }
   });
+}); 
