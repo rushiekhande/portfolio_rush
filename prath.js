@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ['name', 'email', 'message'].forEach(n => {
     form[n].addEventListener('blur', validate);
   });
+  }); 
 
  /* form.addEventListener('submit', (e) => {
     formStatus.textContent = '';
@@ -187,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formStatus.textContent = 'Sending your message...';
     // Form will POST to formsubmit.co and redirect/show success
   });*/
-}); 
+
     form.addEventListener('submit', async (e) => {
     e.preventDefault();
     formStatus.textContent = '';
