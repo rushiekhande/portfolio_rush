@@ -186,8 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
     formStatus.style.color = '#0d9488';
     formStatus.textContent = 'Sending your message...';
     // Form will POST to formsubmit.co and redirect/show success
-  });
-}); */
+  });*/
+}); 
     form.addEventListener('submit', async (e) => {
     e.preventDefault();
     formStatus.textContent = '';
