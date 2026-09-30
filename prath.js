@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formStatus.textContent = 'Sending your message...';
     // Form will POST to formsubmit.co and redirect/show success
   });*/
-
+/*
     form.addEventListener('submit', async (e) => {
     e.preventDefault();
     formStatus.textContent = '';
@@ -232,6 +232,50 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         throw new Error(data.message || 'Request failed');
       }
+    } catch (err) {
+      formStatus.style.color = '#ef4444';
+      formStatus.textContent = 'Could not send: ' + err.message;
+      console.error('Form error:', err);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  }); */
+    form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formStatus.textContent = '';
+    formStatus.style.color = '';
+
+    if (!validate()) {
+      formStatus.style.color = '#ef4444';
+      formStatus.textContent = 'Please fix the highlighted fields.';
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    formStatus.style.color = '#0d9488';
+    formStatus.textContent = 'Sending your message...';
+
+    try {
+      const fd = new FormData();
+      fd.append('name', form.name.value.trim());
+      fd.append('email', form.email.value.trim());
+      fd.append('message', form.message.value.trim());
+      fd.append('_subject', 'New message from your portfolio');
+      fd.append('_captcha', 'false');
+      fd.append('_template', 'table');
+
+      await fetch('https://formsubmit.co/rushikeshekhande123@gmail.com', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: fd
+      });
+
+      formStatus.style.color = '#0d9488';
+      formStatus.textContent = 'Thanks! Your message has been sent.';
+      form.reset();
     } catch (err) {
       formStatus.style.color = '#ef4444';
       formStatus.textContent = 'Could not send: ' + err.message;
