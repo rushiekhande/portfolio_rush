@@ -234,8 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       formStatus.style.color = '#ef4444';
-      formStatus.textContent = 'Could not send message. Please email me directly.';
+      formStatus.textContent = 'Could not send: ' + err.message;
       console.error('Form error:', err);
+    } finally {
     } finally {
       btn.disabled = false;
       btn.textContent = 'Send Message';
