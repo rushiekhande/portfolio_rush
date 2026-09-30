@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formStatus.textContent = 'Sending your message...';
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/prathmandlik@gmail.com', {
+      const res = await fetch('https://formsubmit.co/ajax/rushikeshekhande123@gmail.com.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
