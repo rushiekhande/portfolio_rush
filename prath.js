@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form[n].addEventListener('blur', validate);
   });
 
-  form.addEventListener('submit', (e) => {
+ /* form.addEventListener('submit', (e) => {
     formStatus.textContent = '';
     formStatus.style.color = '';
 
@@ -187,4 +187,56 @@ document.addEventListener('DOMContentLoaded', () => {
     formStatus.textContent = 'Sending your message...';
     // Form will POST to formsubmit.co and redirect/show success
   });
-});
+}); */
+    form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formStatus.textContent = '';
+    formStatus.style.color = '';
+
+    if (!validate()) {
+      formStatus.style.color = '#ef4444';
+      formStatus.textContent = 'Please fix the highlighted fields.';
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    formStatus.style.color = '#0d9488';
+    formStatus.textContent = 'Sending your message...';
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/prathmandlik@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          message: form.message.value.trim(),
+          _subject: 'New message from your portfolio',
+          _captcha: 'false',
+          _template: 'table'
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && (data.success === 'true' || data.success === true)) {
+        formStatus.style.color = '#0d9488';
+        formStatus.textContent = 'Thanks! Your message has been sent.';
+        form.reset();
+      } else {
+        throw new Error(data.message || 'Request failed');
+      }
+    } catch (err) {
+      formStatus.style.color = '#ef4444';
+      formStatus.textContent = 'Could not send message. Please email me directly.';
+      console.error('Form error:', err);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  });
