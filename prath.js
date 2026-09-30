@@ -237,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
       formStatus.textContent = 'Could not send: ' + err.message;
       console.error('Form error:', err);
     } finally {
-    } finally {
       btn.disabled = false;
       btn.textContent = 'Send Message';
     }
